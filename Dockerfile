@@ -1,5 +1,8 @@
-FROM gliderlabs/alpine:3.4
-COPY supporting/reflex /usr/bin/
+FROM pstauffer/inotify:stable
+
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+
 RUN mkdir -p /pipeline/output
 WORKDIR /pipeline/output
-ENTRYPOINT ["/usr/bin/reflex", "-s", "./main"]
+ENTRYPOINT ["/bin/sh", "/docker-entrypoint.sh"]
